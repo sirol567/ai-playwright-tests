@@ -5,9 +5,13 @@ test('Verify secure content visibility only for authenticated users', async ({ p
   await page.goto('https://the-internet.herokuapp.com/login');
   await page.fill('#username', 'tomsmith');
   await page.fill('#password', 'SuperSecretPassword!');
-  await page.click('button:has-text("Login")');
+  
+  // Wait for navigation to complete after login
+  await Promise.all([
+    page.waitForNavigation(),
+    page.click('button:has-text("Login")')
+  ]);
 
   // Step 2: Verify secure content visibility
-  const secureContent = await page.locator('.content').textContent();
-await expect(page.getByText('Welcome to the Secure Area!')).toBeVisible();
+  await expect(page.getByText('Welcome to the Secure Area!')).toBeVisible();
 });
