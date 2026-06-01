@@ -9,5 +9,5 @@ test('Verify secure content visibility only for authenticated users', async ({ p
 
   // Step 2: Verify secure content visibility
   const secureContent = await page.locator('.content').textContent();
-  expect(secureContent).toBe('Welcome to the Secure Area!');
+await expect(page.getByText('Welcome to the Secure Area!')).toBeVisible();
 });
