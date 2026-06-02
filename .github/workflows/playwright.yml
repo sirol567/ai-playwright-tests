@@ -10,18 +10,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - run: npm install
+      - name: Install Dependencies
+        run: npm install
 
-      - run: npx playwright install --with-deps
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
 
-      - name: Clean old test artifacts (optional safety)
-        run: find tests -name "*.spec.js" -type f -mtime +1 -delete || true
+      - name: List Test Files
+        run: |
+          echo "=== TEST FILES FOUND ==="
+          find tests -type f -name "*.spec.js" || true
 
       - name: Run Playwright Tests
         run: npx playwright test tests/
