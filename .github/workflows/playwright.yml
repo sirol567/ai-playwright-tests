@@ -10,27 +10,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Install Dependencies
-        run: npm install
+      - run: npm install
 
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
+      - run: npx playwright install --with-deps
 
-      - name: List Test Files
+      - name: Show files
         run: |
-          echo "=== TEST FILES FOUND ==="
-          find tests -type f -name "*.spec.js" || true
+          pwd
+          find . -name "*.spec.js"
 
-      - name: Run Playwright Tests
-        run: npx playwright test tests/
+      - name: Run Playwright
+        run: npx playwright test
 
       - name: Upload Playwright Report
         if: always()
