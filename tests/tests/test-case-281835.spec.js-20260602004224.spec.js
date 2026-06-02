@@ -6,4 +6,4 @@ test('Verify welcome message is displayed', async ({ page }) => {
   await page.fill('#password', 'SuperSecretPassword!');
   await page.click('button:has-text("Login")');
   await expect(page.locator('.flash')).toContainText('Welcome back, tomsmith!');
-});
+}); 
