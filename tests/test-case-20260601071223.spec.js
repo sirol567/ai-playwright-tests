@@ -2,16 +2,16 @@ const { test, expect } = require('@playwright/test');
 
 test('Verify secure content visibility only for authenticated users', async ({ page }) => {
   // Step 1: Login successfully
-  await page.goto('https://the-internet.herokuapp.com/login');
-  await page.fill('#username', 'tomsmith');
-  await page.fill('#password', 'SuperSecretPassword!');
-  
-  // Wait for navigation to complete after login
-  await Promise.all([
-    page.waitForNavigation(),
-    page.click('button:has-text("Login")')
-  ]);
+await page.goto('https://the-internet.herokuapp.com/login');
 
-  // Step 2: Verify secure content visibility
-  await expect(page.getByText('Welcome to the Secure Area!')).toBeVisible();
+await page.fill('#username', 'tomsmith');
+await page.fill('#password', 'SuperSecretPassword!');
+
+await page.click('button[type="submit"]');
+
+// IMPORTANT: wait for navigation
+await page.waitForURL('**/secure');
+
+// now validate
+await expect(page.locator('h2')).toContainText('Secure Area');
 });
