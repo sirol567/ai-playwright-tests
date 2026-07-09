@@ -8,3 +8,4 @@ test('Verify login with both username and password empty', async ({ page }) => {
   const errorMessage = await page.locator('#flash').textContent();
   expect(errorMessage).toContain('Your username is invalid!');
 });
+
