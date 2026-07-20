@@ -5,5 +5,5 @@ test('Verify login with valid credentials', async ({ page }) => {
   await page.fill('#username', 'tomsmith');
   await page.fill('#password', 'SuperSecretPassword!');
   await page.click('button:has-text("Login")');
-  await expect(page.locator('div.flash.success')).toContainText('You logged into a secure area!');
+  await expect(page.locator('locator').toContainText('You logged into a secure area!');
 });
